@@ -28,8 +28,8 @@
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <v-col md="3" offset-md="3"><v-btn color="green white--text">Sign Up</v-btn></v-col>
-        <v-col md="3"><v-btn color="primary">Sign in</v-btn></v-col>
+        <v-col md="3" offset-md="3"><v-btn class="pl-3 pr-3" color="green white--text">Sign Up</v-btn></v-col>
+        <v-col md="3"><v-btn class="pl-3 pr-3" color="primary">Sign in</v-btn></v-col>
       </v-card-actions>
     </v-card>
   </div>
