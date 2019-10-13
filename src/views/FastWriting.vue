@@ -8,12 +8,7 @@
             <v-list two-line>
               <template v-for="(item, index) in items.slice(0, 6)">
                 <v-divider :key="index" :inset="false"></v-divider>
-                <v-list-item :key="item.title">
-                  <v-list-item-content>
-                    <v-list-item-title v-html="item.japanese"></v-list-item-title>
-                    <v-list-item-subtitle v-html="item.english"></v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
+                <WritingCard :key="`card${index}`" :item="item"></WritingCard>
               </template>
             </v-list>
           </v-card>
@@ -24,13 +19,17 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      lessonId: 1,
-      items: [
-        { avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg', japanese: "彼は誰？", english: 'Who is he?' },
-        { avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg', japanese: "旅行のメインの目的はなに？", english: 'What is a main purpose for your trip?' },
-      ],
-    }),
-  }
+import WritingCard from '@/components/writing/WritingCard.vue';
+export default {
+  components: {
+    WritingCard
+  },
+  data: () => ({
+    lessonId: 1,
+    items: [
+      { avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg', japanese: "彼は誰？", english: 'Who is he?' },
+      { avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg', japanese: "旅行のメインの目的はなに？", english: 'What is a main purpose for your trip?' },
+    ],
+  }),
+}
 </script>
