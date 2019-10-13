@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './views/Login.vue';
 import FastWriting from './views/FastWriting.vue';
+import CreateWriting from './views/CreateWriting.vue';
 
 Vue.use(Router)
 
@@ -23,6 +24,12 @@ export default new Router({
       path: '/lesson/:id',
       name: 'fastwriting',
       component: FastWriting
+    },
+    {
+      path: '/lesson/create',
+      name: 'createwriting',
+      component: CreateWriting
+
     }
   ]
 })
