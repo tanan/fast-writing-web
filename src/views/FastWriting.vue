@@ -34,10 +34,7 @@ export default {
     title: '',
     count: 0,
     waitSec: undefined,
-    items: [
-      { avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg', japanese: "彼は誰？", english: 'Who is he?' },
-      { avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg', japanese: "旅行のメインの目的はなに？", english: 'What is a main purpose for your trip?' },
-    ],
+    items: [],
   }),
   created () {
     this.lessonId = !isNaN(this.$route.params.id) ? parseInt(this.$route.params.id, 10) : 1
@@ -79,7 +76,6 @@ export default {
       }, self.waitSec)
     },
     updateCard: function (items, count) {
-      console.log(items)
       if (items.length - 1 < count) {
         this.complete()
       } else if (items.length - 1 === count) {
@@ -89,7 +85,10 @@ export default {
         items[count + 1].jpShow = true
       }
       return items
-    }
+    },
+    complete: function () {
+      clearInterval(this.intervalId)
+    },
   },
 }
 </script>

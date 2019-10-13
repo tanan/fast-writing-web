@@ -20,7 +20,7 @@ export default new Router({
       component: Login
     },
     {
-      path: '/fast-writing',
+      path: '/lesson/:id',
       name: 'fastwriting',
       component: FastWriting
     }
