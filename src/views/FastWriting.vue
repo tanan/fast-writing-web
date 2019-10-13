@@ -7,8 +7,10 @@
             <v-subheader><span class="lesson-title">Lesson {{ lessonId }}</span> {{ title }}</v-subheader>
             <v-list two-line>
               <template v-for="(item, index) in items">
-                <v-divider :key="index" :inset="false"></v-divider>
-                <WritingCard :key="`card${index}`" :item="item"></WritingCard>
+                <div :key="index" v-if="item.jpShow">
+                  <v-divider :key="index" :inset="false"></v-divider>
+                  <WritingCard :key="`card${index}`" :item="item"></WritingCard>
+                </div>
               </template>
             </v-list>
           </v-card>
@@ -30,6 +32,8 @@ export default {
   data: () => ({
     lessonId: undefined,
     title: '',
+    count: 0,
+    waitSec: undefined,
     items: [
       { avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg', japanese: "彼は誰？", english: 'Who is he?' },
       { avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg', japanese: "旅行のメインの目的はなに？", english: 'What is a main purpose for your trip?' },
@@ -37,7 +41,11 @@ export default {
   }),
   created () {
     this.lessonId = !isNaN(this.$route.params.id) ? parseInt(this.$route.params.id, 10) : 1
+    this.waitSec = !isNaN(this.$route.query.ns) ? parseInt(this.$route.query.ns, 10) : 2000
     this.initLesson(this.lessonId)
+  },
+  mounted () {
+    this.pollData()
   },
   methods: {
     initLesson (id) {
@@ -62,6 +70,25 @@ export default {
           }
           this.$store.dispatch('notification/add', notification, { root: true})
         })  
+    },
+    pollData: function () {
+      var self = this
+      this.intervalId = setInterval(function () {
+        self.items = self.updateCard(self.items, self.count)
+        self.count++
+      }, self.waitSec)
+    },
+    updateCard: function (items, count) {
+      console.log(items)
+      if (items.length - 1 < count) {
+        this.complete()
+      } else if (items.length - 1 === count) {
+        items[count].enShow = true
+      } else {
+        items[count].enShow = true
+        items[count + 1].jpShow = true
+      }
+      return items
     }
   },
 }
