@@ -3,6 +3,8 @@
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="6" md="8">
+          <h2>瞬間英作文</h2>
+          <p class="sentence">表示される日本語を英語で表現してみよう</p>
           <v-card>
             <v-subheader><span class="lesson-title">Lesson {{ lessonId }}</span> {{ title }}</v-subheader>
             <v-list two-line>
@@ -97,5 +99,11 @@ export default {
 .lesson-title {
   color: #555555;
   padding-right: 12px;
+}
+h2 {
+  font-size: 18px;
+}
+p {
+  font-size: 14px;
 }
 </style>
