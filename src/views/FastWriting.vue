@@ -38,7 +38,7 @@ export default {
   }),
   created () {
     this.lessonId = !isNaN(this.$route.params.id) ? parseInt(this.$route.params.id, 10) : 1
-    this.waitSec = !isNaN(this.$route.query.ns) ? parseInt(this.$route.query.ns, 10) : 2000
+    this.waitSec = !isNaN(this.$route.query.ns) ? parseInt(this.$route.query.ns, 10) : 10000
     this.initLesson(this.lessonId)
   },
   mounted () {
