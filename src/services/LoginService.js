@@ -1,33 +1,27 @@
 import axios from 'axios'
 
-const apiClient = axios.create({
+const loginApiClient = axios.create({
   // baseURL: `http://localhost:8080`,
   baseURL: `${process.env.VUE_APP_API_URL}`,
   withCredentials: true,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json'
-  }
+  },
+  timeout: 15000
 })
 
 export default {
-  getLesson(id, token) {
-    console.log("token" + token)
-    apiClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
-    return apiClient.get('/lessons/' + id)
-  },
-  getCardsByLessonId(id) {
-    return apiClient.get('/lessons/' + id + '/contents')
-  },
-  getCard(id) {
-    return apiClient.get('/contents/' + id)
-  },
+  namespaced: true,
   login(data) {
-    return apiClient.post('/login', data)
+    console.log('data:' + data.user.username)
+    return loginApiClient.post('/login', data)
       .then(res => {
+        console.log('response' + res)
           const token = res.headers['access-token']
           if (token !== '') {
-            apiClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
+            console.log('token: ' + token)
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
             res['access-token'] = token
           }
         return res
@@ -35,5 +29,10 @@ export default {
       .catch(err => {
         console.log('error: ' + err)
       })
+  },
+  register() {
+    if (rootState.auth.userId) {
+      headers['user-id'] = rootState.auth.userId
+    }
   }
 }

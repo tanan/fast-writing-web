@@ -40,7 +40,7 @@ export default {
   }),
   created () {
     this.lessonId = !isNaN(this.$route.params.id) ? parseInt(this.$route.params.id, 10) : 1
-    this.waitSec = !isNaN(this.$route.query.ns) ? parseInt(this.$route.query.ns, 10) : 10000
+    this.waitSec = !isNaN(this.$route.query.ns) ? parseInt(this.$route.query.ns, 10) : 5000
     this.initLesson(this.lessonId)
   },
   mounted () {
@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     initLesson (id) {
-      LessonService.getLesson(id)
+      LessonService.getLesson(id, this.$store.getters['auth/getToken'])
         .then((r) => {
           this.title = r.data.title
           let items = _.map(r.data.contents, (v) => {
