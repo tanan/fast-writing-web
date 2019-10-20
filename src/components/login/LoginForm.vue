@@ -52,12 +52,22 @@ export default {
         username: this.username,
         password: this.password
       })
-      this.$router.push('/lesson/1')
     }
   },
   created: function () {
     if (this.$store.state.auth.userId) {
+      console.log("login created")
       this.$router.push('/')
+    }
+  },
+  computed: {
+    token () {
+      return this.$store.state.auth.token
+    }
+  },
+  watch: {
+    token () {
+      this.$router.push('/lesson/1')
     }
   }
 }

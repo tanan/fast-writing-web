@@ -10,7 +10,6 @@ export const state = {
 
 export const getters = {
   loggedIn (state) {
-    console.log('getters: ' + state.userId)
     return Boolean(state.userId.trim())
   },
   getToken (state) {
@@ -21,7 +20,6 @@ export const getters = {
 export const mutations = {
   CREATE_USER (state, data) {
     state.token = data
-    console.log(state.token)
     var token = jwtDecode.decode(data)
     state.userId = token.sub
   },

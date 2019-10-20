@@ -24,10 +24,8 @@ export const actions = {
 
     return axios(options)
       .then(res => {
-        console.log('response' + res)
         const token = res.headers['access-token']
         if (token !== '') {
-          console.log('token: ' + token)
           axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
           res['access-token'] = token
         }

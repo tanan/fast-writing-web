@@ -14,7 +14,8 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: Login
+      component: CreateWriting,
+      meta: { requiresAuth: true }
     },
     {
       path: '/login',
