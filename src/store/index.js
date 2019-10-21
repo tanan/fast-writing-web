@@ -20,7 +20,7 @@ export default new Vuex.Store({
   },
   plugins: [createPersistedState({
     key: 'fastwriting',
-    paths: ['auth.token'],
+    paths: ['auth'],
     storage: window.sessionStorage
   })]
 })
