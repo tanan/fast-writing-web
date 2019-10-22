@@ -1,10 +1,24 @@
 <template>
   <v-content>
     <v-container class="fill-height" fluid>
-      <v-row align="center" justify="center">
-        <v-col cols="12" sm="6" md="8">
+      <v-row align="start" justify="center">
+        <v-col cols="12" sm="6" md="6">
           <h2>瞬間英作文</h2>
           <p class="sentence">表示される日本語を英語で表現してみよう</p>
+          <v-select
+            class="d-inline-flex"
+            v-model="title"
+            :items="titles"
+            label="Lesson"
+            type="text"
+          ></v-select>
+          <v-select
+            class="d-inline-flex pa-2"
+            v-model="selectedSec"
+            :items="sec"
+            label="秒数"
+            type="Number"
+          ></v-select>
           <v-card>
             <v-subheader><span class="lesson-title">Lesson {{ lessonId }}</span> {{ title }}</v-subheader>
             <v-list two-line>
@@ -31,20 +45,25 @@ export default {
   components: {
     WritingCard
   },
-  data: () => ({
-    lessonId: undefined,
-    title: '',
-    count: 0,
-    waitSec: undefined,
-    items: [],
-  }),
+  data () {
+    return {
+      lessonId: undefined,
+      title: '',
+      count: 0,
+      waitSec: undefined,
+      selectedSec: undefined,
+      sec: [1, 3, 5, 7, 9],
+      items: [],
+      titles: ["Going to America", "Hoge"]
+    }
+  },
   created () {
     this.lessonId = !isNaN(this.$route.params.id) ? parseInt(this.$route.params.id, 10) : 1
     this.waitSec = !isNaN(this.$route.query.ns) ? parseInt(this.$route.query.ns, 10) : 5000
     this.initLesson(this.lessonId)
   },
   mounted () {
-    this.pollData()
+    this.pollData(this.waitSec)
   },
   methods: {
     initLesson (id) {
@@ -70,16 +89,19 @@ export default {
           this.$store.dispatch('notification/add', notification, { root: true})
         })  
     },
-    pollData: function () {
+    pollData: function (v) {
       var self = this
+      if (this.intervalId !== undefined) {
+        this.complete(this.intervalId)
+      }
       this.intervalId = setInterval(function () {
         self.items = self.updateCard(self.items, self.count)
         self.count++
-      }, self.waitSec)
+      }, v)
     },
     updateCard: function (items, count) {
       if (items.length - 1 < count) {
-        this.complete()
+        this.complete(this.intervalId)
       } else if (items.length - 1 === count) {
         items[count].enShow = true
       } else {
@@ -88,10 +110,15 @@ export default {
       }
       return items
     },
-    complete: function () {
-      clearInterval(this.intervalId)
+    complete: function (v) {
+      clearInterval(v)
     },
   },
+  watch: {
+    selectedSec: function (v) {
+      this.pollData(v*1000)
+    }
+  }
 }
 </script>
 
