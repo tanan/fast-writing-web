@@ -7,7 +7,7 @@
       <v-spacer></v-spacer>
       <v-btn
         text
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        href="/login"
         target="_blank"
       >
         <span class="mr-2">ログイン</span>
