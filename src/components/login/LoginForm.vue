@@ -30,7 +30,7 @@
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <v-col md="3" offset-md="3"><v-btn class="pl-3 pr-3" color="green white--text" @click="login">Sign Up</v-btn></v-col>
+        <v-col md="3" offset-md="3"><v-btn class="pl-3 pr-3" color="green white--text" @click="register">Sign Up</v-btn></v-col>
         <v-col md="3"><v-btn class="pl-3 pr-3" color="primary" @click="login">Sign in</v-btn></v-col>
       </v-card-actions>
     </v-card>
@@ -52,11 +52,16 @@ export default {
         username: this.username,
         password: this.password
       })
+    },
+    register () {
+      this.$store.dispatch('auth/register', {
+        username: this.username,
+        password: this.password
+      })
     }
   },
   created: function () {
     if (this.$store.state.auth.userId) {
-      console.log("login created")
       this.$router.push('/')
     }
   },

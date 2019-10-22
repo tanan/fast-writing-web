@@ -44,6 +44,18 @@ export const actions = {
     //     console.log(error)
     //   })
   },
+  register ({ dispatch }, data) {
+    dispatch(
+      'http/post',
+      { url: '/user/register', data },
+      { root: true }
+    ).then(res => {
+      console.log(res.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  },
   logout ({ commit }, data) {
     LessonService.logout(data)
       .then(() => {
