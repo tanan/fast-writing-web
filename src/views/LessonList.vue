@@ -2,7 +2,7 @@
   <div>
     <v-container>
       <v-row class="grey lighten-5">
-        <v-col cols="3" v-for="card in cards" :key="card.id">
+        <v-col lg=3 md=12 sm=12 xs=12 v-for="card in cards" :key="card.id">
           <LessonCard :card="card"></LessonCard>
         </v-col>
       </v-row>
@@ -37,3 +37,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.col {
+  flex-basis: auto
+}
+</style>

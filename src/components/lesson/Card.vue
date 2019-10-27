@@ -13,7 +13,7 @@
       </v-list-item>
 
       <v-card-actions>
-        <v-btn text><a :href="`lesson/${card.id}`">Ready GO</a></v-btn>
+        <v-btn text><a :href="`lesson/${card.id}`">LESSON START</a></v-btn>
       </v-card-actions>
     </v-card>
 </template>
