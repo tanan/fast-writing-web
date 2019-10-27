@@ -56,23 +56,36 @@ export default {
       selectedSec: undefined,
       sec: [1, 3, 5, 7, 9],
       items: [],
-      titles: [
-        { label: 'Going to America', value: 1 },
-        { label: 'Test 2', value: 2 },
-        { label: 'Test 3', value: 3 },
-      ]
+      titles: []
     }
   },
   created () {
     this.lessonId = !isNaN(this.$route.params.id) ? parseInt(this.$route.params.id, 10) : 1
     this.waitSec = !isNaN(this.$route.query.ns) ? parseInt(this.$route.query.ns, 10) : 5000
-    this.initLesson(this.lessonId)
+    this.getLessons()
+    this.init(this.lessonId)
   },
   mounted () {
     this.pollData(this.waitSec)
   },
   methods: {
-    initLesson (id) {
+    init(lessonId) {
+      this.count = 0
+      this.items = []
+      this.initLessonContents(lessonId)
+    },
+    getLessons () {
+      console.log("getLessons")
+      LessonService.getLessons(this.$store.getters['auth/getToken'])
+        .then((r) => {
+          this.titles = _.map(r.data, (v) => {
+            v.label = v.title
+            v.value = v.id
+            return v
+          })
+        })
+    },
+    initLessonContents (id) {
       LessonService.getLesson(id, this.$store.getters['auth/getToken'])
         .then((r) => {
           this.title = r.data.title
@@ -123,6 +136,9 @@ export default {
   watch: {
     selectedSec: function (v) {
       this.pollData(v*1000)
+    },
+    lessonId: function (v) {
+      this.init(v)
     }
   }
 }

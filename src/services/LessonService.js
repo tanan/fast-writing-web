@@ -11,6 +11,10 @@ const apiClient = axios.create({
 })
 
 export default {
+  getLessons(token) {
+    apiClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
+    return apiClient.get('/lessons')
+  },
   getLesson(id, token) {
     apiClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
     return apiClient.get('/lessons/' + id)
