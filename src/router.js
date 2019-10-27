@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from './views/Login.vue';
 import FastWriting from './views/FastWriting.vue';
 import CreateWriting from './views/CreateWriting.vue';
+import LessonList from './views/LessonList.vue';
 import Store from './store';
 
 Vue.use(Router)
@@ -14,7 +15,7 @@ const router = new Router({
     {
       path: '/',
       name: 'home',
-      component: CreateWriting,
+      component: LessonList,
       meta: { requiresAuth: true }
     },
     {
