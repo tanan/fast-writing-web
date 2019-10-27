@@ -49,10 +49,10 @@ export default {
   },
   data () {
     return {
-      lessonId: undefined,
+      lessonId: !isNaN(this.$route.params.id) ? parseInt(this.$route.params.id, 10) : 1,
       title: '',
       count: 0,
-      waitSec: undefined,
+      waitSec: !isNaN(this.$route.query.ns) ? parseInt(this.$route.query.ns, 10) : 5000,
       selectedSec: undefined,
       sec: [1, 3, 5, 7, 9],
       items: [],
@@ -60,8 +60,6 @@ export default {
     }
   },
   created () {
-    this.lessonId = !isNaN(this.$route.params.id) ? parseInt(this.$route.params.id, 10) : 1
-    this.waitSec = !isNaN(this.$route.query.ns) ? parseInt(this.$route.query.ns, 10) : 5000
     this.getLessons()
     this.init(this.lessonId)
   },
@@ -72,10 +70,10 @@ export default {
     init(lessonId) {
       this.count = 0
       this.items = []
+      this.pollData(this.waitSec)
       this.initLessonContents(lessonId)
     },
     getLessons () {
-      console.log("getLessons")
       LessonService.getLessons(this.$store.getters['auth/getToken'])
         .then((r) => {
           this.titles = _.map(r.data, (v) => {
@@ -138,8 +136,12 @@ export default {
       this.pollData(v*1000)
     },
     lessonId: function (v) {
-      this.init(v)
+      this.$router.push('/lesson/' + v)
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.init(this.lessonId)
+    next()
   }
 }
 </script>
