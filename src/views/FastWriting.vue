@@ -53,7 +53,7 @@ export default {
       title: '',
       count: 0,
       waitSec: !isNaN(this.$route.query.ns) ? parseInt(this.$route.query.ns, 10) : 5000,
-      selectedSec: undefined,
+      selectedSec: 5,
       sec: [1, 3, 5, 7, 9],
       items: [],
       titles: []
