@@ -72,7 +72,7 @@ export default {
   },
   watch: {
     token () {
-      this.$router.push('/lesson/1')
+      this.$router.push('/')
     }
   }
 }
