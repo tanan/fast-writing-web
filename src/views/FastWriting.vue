@@ -7,7 +7,9 @@
           <p class="sentence">表示される日本語を英語で表現してみよう</p>
           <v-select
             class="d-inline-flex"
-            v-model="title"
+            v-model="lessonId"
+            item-text="label"
+            item-value="value"
             :items="titles"
             label="Lesson"
             type="text"
@@ -54,7 +56,11 @@ export default {
       selectedSec: undefined,
       sec: [1, 3, 5, 7, 9],
       items: [],
-      titles: ["Going to America", "Hoge"]
+      titles: [
+        { label: 'Going to America', value: 1 },
+        { label: 'Test 2', value: 2 },
+        { label: 'Test 3', value: 3 },
+      ]
     }
   },
   created () {
