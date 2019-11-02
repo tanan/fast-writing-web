@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './views/Login.vue';
+import Signup from './views/Signup.vue';
 import FastWriting from './views/FastWriting.vue';
 import CreateWriting from './views/CreateWriting.vue';
 import LessonList from './views/LessonList.vue';
@@ -21,6 +22,11 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: Signup
     },
     {
       path: '/lesson/:id',

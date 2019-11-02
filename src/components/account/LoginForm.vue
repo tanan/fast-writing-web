@@ -32,7 +32,7 @@
       <v-card-actions>
         <v-col md="6"><v-btn color="primary" @click="login">Sign in</v-btn></v-col>
       </v-card-actions>
-      <router-link to="/register">Don't have an account? Register.</router-link>
+      <router-link to="/signup">Don't have an account? Register.</router-link>
     </v-card>
   </div>
 </template>
