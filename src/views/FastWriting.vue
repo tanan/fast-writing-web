@@ -74,7 +74,7 @@ export default {
       this.initLessonContents(lessonId)
     },
     getLessons () {
-      LessonService.getLessons(this.$store.getters['auth/getToken'])
+      LessonService.getLessons()
         .then((r) => {
           this.titles = _.map(r.data, (v) => {
             v.label = v.title
@@ -84,7 +84,7 @@ export default {
         })
     },
     initLessonContents (id) {
-      LessonService.getLesson(id, this.$store.getters['auth/getToken'])
+      LessonService.getLesson(id)
         .then((r) => {
           this.title = r.data.title
           let items = _.map(r.data.contents, (v) => {

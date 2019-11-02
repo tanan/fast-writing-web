@@ -1,30 +1,32 @@
 import jwtDecode from 'vue-jwt-decode'
-import LessonService from '../../services/LessonService'
+import router from '@/router.js'
+import Axios from 'axios'
+import apiClient from '@/services/Client.js'
 
 export const namespaced = true
 
 export const state = {
-  userId: '',
-  token: ''
+  userId: ''
 }
 
 export const getters = {
   loggedIn (state) {
     return Boolean(state.userId.trim())
-  },
-  getToken (state) {
-    return state.token
   }
 }
 
 export const mutations = {
   CREATE_USER (state, data) {
-    state.token = data
+    localStorage.setItem('user', JSON.stringify(data))
+    apiClient.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('user').replace(/["]/g,"")
     var token = jwtDecode.decode(data)
     state.userId = token.sub
   },
-  REMOVE_USER (state) {
+  REMOVE_USER () {
     state.userId = ''
+    localStorage.removeItem('user')
+    Axios.defaults.headers.common['Authorization'] = null
+    location.reload()
   }
 }
 
@@ -34,7 +36,10 @@ export const actions = {
       'http/post',
       { url: '/login', data },
       { root: true }
-    ).then(res => commit('CREATE_USER', res['access-token']))
+    ).then(res =>  {
+      commit('CREATE_USER', res['access-token'])
+      router.push('/')
+    })
       .catch(err => err)
     // LessonService.login(data)
     //   .then((r) => {
@@ -56,20 +61,7 @@ export const actions = {
       console.log(error)
     })
   },
-  logout ({ commit }, data) {
-    LessonService.logout(data)
-      .then(() => {
-        commit('CREATE_USER', '')
-      })
-      .catch(error => {
-        console.log(error)
-        // const notification = {
-        //   type: 'error',
-        //   message: 'There was a problem authentication:' + error.message
-        // }
-        // this.$store.dispatch('notification/add', notification, {root: true})
-      })
-      // logout anyway ...
-      .finally(commit('REMOVE_USER', ''))
+  logout ({ commit }) {
+    commit('REMOVE_USER')
   }
 }

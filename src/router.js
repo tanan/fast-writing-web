@@ -4,7 +4,6 @@ import Login from './views/Login.vue';
 import FastWriting from './views/FastWriting.vue';
 import CreateWriting from './views/CreateWriting.vue';
 import LessonList from './views/LessonList.vue';
-import Store from './store';
 
 Vue.use(Router)
 
@@ -39,18 +38,14 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    console.log('auth: ' + Store.getters['auth/loggedIn'])
-    if (!Store.getters['auth/loggedIn']) {
-      next({
-        path: '/login',
-        query: {
-          redirect: to.fullPath
-        }
-      })
-    } else {
-      next()
-    }
+  const loggedIn = localStorage.getItem('user')
+  if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
+    next({
+      path: '/login',
+      query: {
+        redirect: to.fullPath
+      }
+    })
   } else {
     next()
   }

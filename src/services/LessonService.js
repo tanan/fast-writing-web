@@ -1,22 +1,10 @@
-import axios from 'axios'
-
-const apiClient = axios.create({
-  // baseURL: `http://localhost:8080`,
-  baseURL: `${process.env.VUE_APP_API_URL}`,
-  withCredentials: true,
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-  }
-})
+import apiClient from './Client.js'
 
 export default {
-  getLessons(token) {
-    apiClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
+  getLessons() {
     return apiClient.get('/lessons')
   },
-  getLesson(id, token) {
-    apiClient.defaults.headers.common['Authorization'] = 'Bearer ' + token
+  getLesson(id) {
     return apiClient.get('/lessons/' + id)
   },
   getCardsByLessonId(id) {

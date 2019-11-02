@@ -30,9 +30,9 @@
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <v-col md="3" offset-md="3"><v-btn class="pl-3 pr-3" color="green white--text" @click="register">Sign Up</v-btn></v-col>
-        <v-col md="3"><v-btn class="pl-3 pr-3" color="primary" @click="login">Sign in</v-btn></v-col>
+        <v-col md="6"><v-btn color="primary" @click="login">Sign in</v-btn></v-col>
       </v-card-actions>
+      <router-link to="/register">Don't have an account? Register.</router-link>
     </v-card>
   </div>
 </template>
@@ -58,21 +58,6 @@ export default {
         username: this.username,
         password: this.password
       })
-    }
-  },
-  created: function () {
-    if (this.$store.state.auth.userId) {
-      this.$router.push('/')
-    }
-  },
-  computed: {
-    token () {
-      return this.$store.state.auth.token
-    }
-  },
-  watch: {
-    token () {
-      this.$router.push('/')
     }
   }
 }

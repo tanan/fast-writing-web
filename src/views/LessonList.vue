@@ -28,9 +28,8 @@ export default {
       return "/lesson/" + id
     },
     getLessonCards () {
-      LessonService.getLessons(this.$store.getters['auth/getToken'])
+      LessonService.getLessons()
         .then((r) => {
-          console.log(r.data)
           this.cards = r.data
         })
     }
