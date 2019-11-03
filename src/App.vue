@@ -8,6 +8,9 @@
           </v-btn>
         </v-toolbar-title>
       </router-link>
+      <router-link to="/lesson/create" class="button">
+        <v-btn text><v-icon>playlist_add</v-icon>Lesson作成</v-btn>
+      </router-link>
       <v-spacer></v-spacer>
       <router-link v-if="!this.$store.getters['auth/loggedIn']" to="/login" class="button">
         ログイン
