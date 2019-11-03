@@ -2,7 +2,7 @@
   <v-content>
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">
-        <v-col cols="12" sm="8" md="4">
+        <v-col cols="12" sm="8" md="4" class="signup-form">
           <SignupForm></SignupForm>
         </v-col>
       </v-row>
@@ -21,3 +21,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .signup-form {
+    max-width: 480px;
+  }
+</style>

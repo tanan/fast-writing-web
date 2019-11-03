@@ -41,21 +41,14 @@ export const actions = {
       router.push('/')
     })
       .catch(err => err)
-    // LessonService.login(data)
-    //   .then((r) => {
-    //     commit('CREATE_USER', r['access-token'])
-    //   })
-    //   .catch(error => {
-    //     console.log(error)
-    //   })
   },
   register ({ dispatch }, data) {
     dispatch(
       'http/post',
       { url: '/user/register', data },
       { root: true }
-    ).then(res => {
-      console.log(res.data)
+    ).then(() => {
+      router.push('/login')
     })
     .catch(error => {
       console.log(error)

@@ -30,9 +30,13 @@
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <v-col md="6"><v-btn color="primary" @click="login">Sign in</v-btn></v-col>
+        <v-row justify="center">
+          <v-btn color="primary" @click="login">Sign in</v-btn>
+        </v-row>
       </v-card-actions>
-      <router-link to="/signup">Don't have an account? Register.</router-link>
+      <v-row justify="center">
+        <router-link to="/signup">Don't have an account? Register.</router-link>
+      </v-row>
     </v-card>
   </div>
 </template>
@@ -49,12 +53,6 @@ export default {
   methods: {
     login () {
       this.$store.dispatch('auth/login', {
-        username: this.username,
-        password: this.password
-      })
-    },
-    register () {
-      this.$store.dispatch('auth/register', {
         username: this.username,
         password: this.password
       })

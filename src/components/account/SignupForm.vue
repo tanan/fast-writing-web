@@ -2,7 +2,7 @@
   <div>
     <v-card class="elevation-12">
       <v-toolbar
-        color="primary"
+        color="success"
         dark
         flat
       >
@@ -30,9 +30,11 @@
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <v-col md="6"><v-btn color="primary" @click="register">Sign up</v-btn></v-col>
+        <v-row justify="center"><v-btn color="success" @click="register">Sign up</v-btn></v-row>
       </v-card-actions>
-      <router-link to="/login">Do you already have an account? Login.</router-link>
+      <v-row justify="center">
+        <router-link to="/login">Do you already have an account? Login.</router-link>
+      </v-row>
     </v-card>
   </div>
 </template>
