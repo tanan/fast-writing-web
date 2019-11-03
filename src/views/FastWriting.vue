@@ -79,12 +79,23 @@ export default {
           this.titles = _.map(r.data, (v) => {
             v.label = v.title
             v.value = v.id
+            v.type = "PREDEFINED"
             return v
           })
         })
+      LessonService.getLessonsByUserId(this.$store.auth.userId)
+        .then((r) => {
+          let t = _.map(r.data, (v) => {
+            v.label = v.title
+            v.value = v.id
+            v.type = "CUSTOM"
+            return v
+          })
+          this.titles.push(t)
+        })
     },
     initLessonContents (id) {
-      LessonService.getLesson(id)
+      LessonService.getCardsByIdAndLessonId(id)
         .then((r) => {
           this.title = r.data.title
           let items = _.map(r.data.contents, (v) => {

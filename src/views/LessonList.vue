@@ -13,6 +13,7 @@
 <script>
 import LessonCard from '@/components/lesson/Card.vue';
 import LessonService from '@/services/LessonService.js';
+import _ from 'lodash';
 export default {
   components: {
     LessonCard
@@ -30,7 +31,31 @@ export default {
     getLessonCards () {
       LessonService.getLessons()
         .then((r) => {
-          this.cards = r.data
+          let t = _.map(r.data, (v) => {
+            return {
+              title: v.title,
+              label: v.title,
+              value: v.id,
+              description: v.description,
+              type: "PREDEFINED"
+            }
+          })
+          this.cards = t
+        })
+      LessonService.getLessonsByUserId(this.$store.getters['auth/getUserId'])
+        .then((r) => {
+          let t = _.map(r.data, (v) => {
+            return {
+              title: v.title,
+              label: v.title,
+              value: v.id,
+              description: v.description,
+              type: "CUSTOM"
+            }
+          })
+          if (t.length != 0) {
+            this.cards = this.cards.concat(t)
+          }
         })
     }
   }

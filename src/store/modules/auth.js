@@ -12,6 +12,9 @@ export const state = {
 export const getters = {
   loggedIn (state) {
     return Boolean(state.userId)
+  },
+  getUserId (state) {
+    return state.userId
   }
 }
 
@@ -45,7 +48,7 @@ export const actions = {
   register ({ dispatch }, data) {
     dispatch(
       'http/post',
-      { url: '/user/register', data },
+      { url: '/users/register', data },
       { root: true }
     ).then(() => {
       router.push('/login')

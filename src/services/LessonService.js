@@ -4,14 +4,14 @@ export default {
   getLessons() {
     return apiClient.get('/lessons')
   },
-  getLesson(id) {
-    return apiClient.get('/lessons/' + id)
-  },
-  getCardsByLessonId(id) {
+  getCardsByIdAndLessonId(id) {
     return apiClient.get('/lessons/' + id + '/contents')
   },
-  getCard(id) {
-    return apiClient.get('/contents/' + id)
+  getLessonsByUserId(userId) {
+    return apiClient.get("/users/" + userId + "/lessons")
+  },
+  getCardsByIdAndUserId(id, userId) {
+    return apiClient.get("/users/" + userId + "/lessons/" + id + "/contents")
   },
   login(data) {
     return apiClient.post('/login', data)
