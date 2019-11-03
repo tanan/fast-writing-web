@@ -11,7 +11,7 @@ export const state = {
 
 export const getters = {
   loggedIn (state) {
-    return Boolean(state.userId.trim())
+    return Boolean(state.userId)
   }
 }
 
