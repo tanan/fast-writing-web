@@ -25,7 +25,7 @@ export const mutations = {
     var token = jwtDecode.decode(data)
     state.userId = token.sub
   },
-  REMOVE_USER () {
+  REMOVE_USER (state) {
     state.userId = ''
     localStorage.removeItem('user')
     Axios.defaults.headers.common['Authorization'] = null
