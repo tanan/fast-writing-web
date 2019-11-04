@@ -29,15 +29,15 @@ const router = new Router({
       component: Signup
     },
     {
-      path: '/lesson/:id',
-      name: 'fastwriting',
-      component: FastWriting,
-      meta: { requiresAuth: true }
-    },
-    {
       path: '/lesson/create',
       name: 'createwriting',
       component: CreateWriting,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/lesson/:id',
+      name: 'fastwriting',
+      component: FastWriting,
       meta: { requiresAuth: true }
     }
   ]

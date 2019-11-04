@@ -13,6 +13,9 @@ export default {
   getCardsByIdAndUserId(id, userId) {
     return apiClient.get("/users/" + userId + "/lessons/" + id + "/contents")
   },
+  createLesson(lesson, userId) {
+    return apiClient.post("/users/" + userId + "/lessons/create", lesson)
+  },
   login(data) {
     return apiClient.post('/login', data)
       .then(res => {
