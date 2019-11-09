@@ -41,7 +41,7 @@ export default {
               type: "PREDEFINED"
             }
           })
-          this.cards = t
+          this.cards = this.cards.concat(t)
         })
       LessonService.getLessonsByUserId(this.$store.getters['auth/getUserId'])
         .then((r) => {

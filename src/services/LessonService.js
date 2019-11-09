@@ -19,8 +19,8 @@ export default {
   createLesson(lesson, userId) {
     return apiClient.post("/users/" + userId + "/lessons", lesson)
   },
-  createContent(contentId, content, lessonId, userId) {
-    return apiClient.post("/users/" + userId + "/lessons/" + lessonId + "/contents" + contentId, content)
+  createContent(content, lessonId, userId) {
+    return apiClient.post("/users/" + userId + "/lessons/" + lessonId + "/contents", content)
   },
   login(data) {
     return apiClient.post('/login', data)

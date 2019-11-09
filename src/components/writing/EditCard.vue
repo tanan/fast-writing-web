@@ -41,11 +41,13 @@ export default {
   methods: {
     save (contentId) {
       let content = {
+        id: contentId,
         japaneseText: this.jp,
         englishText: this.en,
       }
       console.log(content)
-      LessonService.createContent(contentId, content, this.lessonId, this.$store.getters['auth/getUserId'])
+      console.log("contentId:" + contentId + ", lessonId:" + this.lessonId)
+      LessonService.createContent(content, this.lessonId, this.$store.getters['auth/getUserId'])
         .then((r) => {
           console.log(r)
         })

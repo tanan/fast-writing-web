@@ -11,7 +11,7 @@
             <v-list two-line>
               <template v-for="(item, index) in items">
                 <v-divider :key="index" :inset="false"></v-divider>
-                <EditCard :contentId="item.id" :key="`card${index}`" :item="item"></EditCard>
+                <EditCard :contentId="item.id" :lessonId="lessonId" :key="`card${index}`" :item="item"></EditCard>
               </template>
               <template>
                 <v-divider :inset="false"></v-divider>
