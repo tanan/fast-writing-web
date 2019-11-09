@@ -3,7 +3,9 @@ import Router from 'vue-router'
 import Login from './views/Login.vue';
 import Signup from './views/Signup.vue';
 import FastWriting from './views/FastWriting.vue';
-import CreateWriting from './views/CreateWriting.vue';
+import UserFastWriting from './views/UserFastWriting.vue';
+import CreateLesson from './views/CreateLesson.vue';
+import EditLesson from './views/EditLesson.vue';
 import LessonList from './views/LessonList.vue';
 
 Vue.use(Router)
@@ -29,15 +31,33 @@ const router = new Router({
       component: Signup
     },
     {
-      path: '/lesson/create',
-      name: 'createwriting',
-      component: CreateWriting,
-      meta: { requiresAuth: true }
-    },
-    {
       path: '/lesson/:id',
       name: 'fastwriting',
       component: FastWriting,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/lesson',
+      name: 'LessonList',
+      component: LessonList,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/user/lesson/create',
+      name: 'createLesson',
+      component: CreateLesson,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/user/lesson/edit/:id',
+      name: 'editLesson',
+      component: EditLesson,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/user/lesson/:id',
+      name: 'userFastWriting',
+      component: UserFastWriting,
       meta: { requiresAuth: true }
     }
   ]

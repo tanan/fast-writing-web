@@ -4,17 +4,23 @@ export default {
   getLessons() {
     return apiClient.get('/lessons')
   },
-  getCardsByIdAndLessonId(id) {
+  getCardsById(id) {
     return apiClient.get('/lessons/' + id + '/contents')
   },
   getLessonsByUserId(userId) {
     return apiClient.get("/users/" + userId + "/lessons")
   },
+  getLessonByIdAndUserId(id, userId) {
+    return apiClient.get('/users/' + userId + '/lessons/' + id)
+  },
   getCardsByIdAndUserId(id, userId) {
     return apiClient.get("/users/" + userId + "/lessons/" + id + "/contents")
   },
   createLesson(lesson, userId) {
-    return apiClient.post("/users/" + userId + "/lessons/create", lesson)
+    return apiClient.post("/users/" + userId + "/lessons", lesson)
+  },
+  createContent(content, lessonId, userId) {
+    return apiClient.post("/users/" + userId + "/lessons/" + lessonId + "/contents", content)
   },
   login(data) {
     return apiClient.post('/login', data)

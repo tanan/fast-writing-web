@@ -8,15 +8,18 @@
           </v-btn>
         </v-toolbar-title>
       </router-link>
-      <router-link to="/lesson/create" class="button">
+      <router-link to="/lesson" class="button">
+        <v-btn text><v-icon>list_alt</v-icon>Lesson一覧</v-btn>
+      </router-link>
+      <router-link to="/user/lesson/create" class="button">
         <v-btn text><v-icon>playlist_add</v-icon>Lesson作成</v-btn>
       </router-link>
       <v-spacer></v-spacer>
       <router-link v-if="!this.$store.getters['auth/loggedIn']" to="/login" class="button">
-        ログイン
+        Login
       </router-link>
       <button v-else type="button" class="logoutButton" @click="logout">
-        ログアウト
+        Logout
       </button>
     </v-app-bar>
 

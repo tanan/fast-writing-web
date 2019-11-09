@@ -69,7 +69,7 @@ export default {
       this.initLessonContents(lessonId)
     },
     initLessonContents (id) {
-      LessonService.getCardsById(id)
+      LessonService.getCardsByIdAndUserId(id, this.$store.getters['auth/getUserId'])
         .then((r) => {
           this.title = r.data.title
           let items = _.map(r.data.contents, (v) => {

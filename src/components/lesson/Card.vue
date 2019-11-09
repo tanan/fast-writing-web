@@ -13,7 +13,8 @@
       </v-list-item>
 
       <v-card-actions>
-        <v-btn text><a :href="`lesson/${card.id}`">LESSON START</a></v-btn>
+        <v-btn text><a :href="lessonUrl">LESSON START</a></v-btn>
+        <v-btn v-if="isUserCard()" text><a :href="editUrl">EDIT</a></v-btn>
       </v-card-actions>
     </v-card>
 </template>
@@ -23,9 +24,23 @@ export default {
   props: {
     card: Object,
   },
-  method: {
-    getLessonUrl (id) {
-      return "/lesson/" + id
+  data () {
+    return {
+      lessonUrl: '',
+      editUrl: undefined
+    }
+  },
+  created () {
+    if (this.card.type == "USER") {
+      this.lessonUrl = "/user/lesson/" + this.card.id
+      this.editUrl = '/user/lesson/edit/' + this.card.id
+    } else {
+      this.lessonUrl = "/lesson/" + this.card.id
+    }
+  },
+  methods: {
+    isUserCard () {
+      return this.card.type == "USER" ? true : false
     }
   }
 }

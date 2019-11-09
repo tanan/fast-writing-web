@@ -2,7 +2,7 @@
   <div>
     <v-container>
       <v-row class="grey lighten-5">
-        <v-col lg=3 md=12 sm=12 xs=12 v-for="card in cards" :key="card.id">
+        <v-col lg=3 md=12 sm=12 xs=12 v-for="card in cards" :key="`${card.type}-${card.id}`">
           <LessonCard :card="card"></LessonCard>
         </v-col>
       </v-row>
@@ -33,6 +33,7 @@ export default {
         .then((r) => {
           let t = _.map(r.data, (v) => {
             return {
+              id: v.id,
               title: v.title,
               label: v.title,
               value: v.id,
@@ -46,11 +47,12 @@ export default {
         .then((r) => {
           let t = _.map(r.data, (v) => {
             return {
+              id: v.id,
               title: v.title,
               label: v.title,
               value: v.id,
               description: v.description,
-              type: "CUSTOM"
+              type: "USER"
             }
           })
           if (t.length != 0) {
