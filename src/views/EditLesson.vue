@@ -6,7 +6,19 @@
           <h2>Lesson編集</h2>
           <v-text-field readonly v-model="title" label="Title" required></v-text-field>
           <v-text-field readonly v-model="description" label="Description" required></v-text-field>
-          <v-btn color="info" @click="create">Add Content</v-btn>
+          <v-card>
+            <v-subheader><span class="lesson-title">Lesson {{ lessonId }}</span> {{ title }}</v-subheader>
+            <v-list two-line>
+              <template v-for="(item, index) in items">
+                <v-divider :key="index" :inset="false"></v-divider>
+                <EditCard :contentId="item.id" :key="`card${index}`" :item="item"></EditCard>
+              </template>
+              <template>
+                <v-divider :inset="false"></v-divider>
+                <EditCard :contentId="undefined" :lessonId="lessonId" :item="newItem"></EditCard>
+              </template>
+            </v-list>
+          </v-card>
         </v-form>
       </v-col>
     </v-row>
@@ -14,9 +26,13 @@
 </template>
 
 <script>
+import EditCard from '@/components/writing/EditCard.vue';
 import LessonService from '@/services/LessonService.js';
 import _ from 'lodash';
 export default {
+  components: {
+    EditCard
+  },
   data () {
     return {
       lessonId: !isNaN(this.$route.params.id) ? parseInt(this.$route.params.id, 10) : undefined,
@@ -24,7 +40,11 @@ export default {
       description: '',
       jp: '',
       en: '',
-      items: []
+      items: [],
+      newItem: {
+        jp: '日本語文を新規追加',
+        en: 'add new sentence in English',
+      }
     }
   },
   created () {
@@ -36,16 +56,6 @@ export default {
     },
     reset () {
       this.$refs.form.reset()
-    },
-    create () {
-      let content = {
-        jp_text: this.jp,
-        en_text: this.en,
-      }
-      LessonService.createContent(content, this.lessonId, this.$store.getters['auth/getUserId'])
-        .then((r) => {
-          console.log(r)
-        })
     },
     initLessonContents (id) {
       LessonService.getCardsByIdAndUserId(id, this.$store.getters['auth/getUserId'])
