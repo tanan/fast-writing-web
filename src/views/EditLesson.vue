@@ -15,7 +15,7 @@
               </template>
               <template>
                 <v-divider :inset="false"></v-divider>
-                <EditCard :contentId="undefined" :lessonId="lessonId" :item="newItem"></EditCard>
+                <NewCard :lessonId="lessonId"></NewCard>
               </template>
             </v-list>
           </v-card>
@@ -27,11 +27,13 @@
 
 <script>
 import EditCard from '@/components/writing/EditCard.vue';
+import NewCard from '@/components/writing/NewCard.vue';
 import LessonService from '@/services/LessonService.js';
 import _ from 'lodash';
 export default {
   components: {
-    EditCard
+    EditCard,
+    NewCard
   },
   data () {
     return {

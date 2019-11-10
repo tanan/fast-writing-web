@@ -28,39 +28,34 @@ export default {
     getLessonUrl (id) {
       return "/lesson/" + id
     },
-    getLessonCards () {
-      LessonService.getLessons()
-        .then((r) => {
-          let t = _.map(r.data, (v) => {
-            return {
-              id: v.id,
-              title: v.title,
-              label: v.title,
-              value: v.id,
-              description: v.description,
-              type: "PREDEFINED"
-            }
-          })
-          this.cards = this.cards.concat(t)
-        })
-      LessonService.getLessonsByUserId(this.$store.getters['auth/getUserId'])
-        .then((r) => {
-          let t = _.map(r.data, (v) => {
-            console.log(v)
-            return {
-              id: v.id,
-              title: v.title,
-              label: v.title,
-              value: v.id,
-              description: v.description,
-              type: "USER"
-            }
-          })
-          if (t.length != 0) {
-            console.log(t.length)
-            this.cards = this.cards.concat(t)
-          }
-        })
+    async getLessonCards () {
+      let preRes = await LessonService.getLessons()
+      let preCards = _.map(preRes.data, (v) => {
+        return {
+          id: v.id,
+          title: v.title,
+          label: v.title,
+          value: v.id,
+          description: v.description,
+          type: "PREDEFINED"
+        }
+      })
+      this.cards = this.cards.concat(preCards)
+      let userRes = await LessonService.getLessonsByUserId(this.$store.getters['auth/getUserId'])
+      let userCards = _.map(userRes.data, (v) => {
+        return {
+          id: v.id,
+          title: v.title,
+          label: v.title,
+          value: v.id,
+          description: v.description,
+          type: "USER"
+        }
+      })
+      if (userCards.length != 0) {
+        console.log(userCards.length)
+        this.cards = this.cards.concat(userCards)
+      }
     }
   }
 }
