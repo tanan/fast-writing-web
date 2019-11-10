@@ -24,15 +24,14 @@ export default {
     reset () {
       this.$refs.form.reset()
     },
-    create () {
+    async create () {
       let lesson = {
         title: this.title,
         description: this.description
       }
-      LessonService.createLesson(lesson, this.$store.getters['auth/getUserId'])
-        .then((r) => {
-          console.log(r)
-        })
+      let r = await LessonService.createLesson(lesson, this.$store.getters['auth/getUserId'])
+      console.log(r)
+      this.$router.push('/lesson')
     }
   }
 }

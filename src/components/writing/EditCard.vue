@@ -9,7 +9,7 @@
     <v-dialog v-model="dialog" max-width="500px">
       <v-card>
         <v-card-title>
-          Dialog 2
+          カード編集
         </v-card-title>
         <v-form ref="form">
           <v-text-field v-model="jp" label="日本語" required class="edit-text"></v-text-field>
@@ -39,7 +39,7 @@ export default {
     }
   },
   methods: {
-    save (contentId) {
+    async save (contentId) {
       let content = {
         id: contentId,
         japaneseText: this.jp,
@@ -47,10 +47,8 @@ export default {
       }
       console.log(content)
       console.log("contentId:" + contentId + ", lessonId:" + this.lessonId)
-      LessonService.createContent(content, this.lessonId, this.$store.getters['auth/getUserId'])
-        .then((r) => {
-          console.log(r)
-        })
+      let r = await LessonService.createContent(content, this.lessonId, this.$store.getters['auth/getUserId'])
+      console.log(r)
       this.dialog = false
       this.$store.dispatch('card/refleshEditContent')
     }

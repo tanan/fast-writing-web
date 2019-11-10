@@ -11,7 +11,7 @@
     <v-dialog v-model="dialog" max-width="500px">
       <v-card>
         <v-card-title>
-          Dialog 2
+          カード追加
         </v-card-title>
         <v-form ref="form">
           <v-text-field v-model="jp" label="日本語" required class="edit-text"></v-text-field>
@@ -45,10 +45,8 @@ export default {
         englishText: this.en,
       }
       console.log(content)
-      LessonService.createContent(content, this.lessonId, this.$store.getters['auth/getUserId'])
-        .then((r) => {
-          console.log(r)
-        })
+      let r = LessonService.createContent(content, this.lessonId, this.$store.getters['auth/getUserId'])
+      console.log(r)
       this.dialog = false
       this.$store.dispatch('card/refleshEditContent')
     }
