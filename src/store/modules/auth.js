@@ -1,7 +1,6 @@
 import jwtDecode from 'vue-jwt-decode'
 import router from '@/router.js'
 import Axios from 'axios'
-import apiClient from '@/services/Client.js'
 
 export const namespaced = true
 
@@ -21,7 +20,6 @@ export const getters = {
 export const mutations = {
   CREATE_USER (state, data) {
     localStorage.setItem('user', JSON.stringify(data))
-    apiClient.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('user').replace(/["]/g,"")
     var token = jwtDecode.decode(data)
     state.userId = token.sub
   },

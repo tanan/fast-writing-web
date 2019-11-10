@@ -48,11 +48,26 @@ export default {
     }
   },
   created () {
-    this.init(this.lessonId)
+    this.init()
+  },
+  computed: {
+    shouldReflesh() {
+      return this.$store.getters['card/reflesh']
+    }
+  },
+  watch: {
+    shouldReflesh(v) {
+      console.log("hogehoge")
+      if (v) {
+        this.initLessonContents(this.lessonId)
+        console.log("hogehoge2")
+        this.$store.dispatch('card/finishEditContent')
+      }
+    }
   },
   methods: {
-    init(lessonId) {
-      this.initLessonContents(lessonId)
+    init() {
+      this.initLessonContents(this.lessonId)
     },
     reset () {
       this.$refs.form.reset()

@@ -46,6 +46,7 @@ export default {
       LessonService.getLessonsByUserId(this.$store.getters['auth/getUserId'])
         .then((r) => {
           let t = _.map(r.data, (v) => {
+            console.log(v)
             return {
               id: v.id,
               title: v.title,
@@ -56,6 +57,7 @@ export default {
             }
           })
           if (t.length != 0) {
+            console.log(t.length)
             this.cards = this.cards.concat(t)
           }
         })

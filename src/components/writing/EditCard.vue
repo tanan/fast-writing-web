@@ -51,6 +51,8 @@ export default {
         .then((r) => {
           console.log(r)
         })
+      this.dialog = false
+      this.$store.dispatch('card/refleshEditContent')
     }
   }
 }
@@ -58,6 +60,6 @@ export default {
 
 <style scoped>
   .edit-text {
-
+    margin: 0 10px;
   }
 </style>
