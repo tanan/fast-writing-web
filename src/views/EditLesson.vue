@@ -74,25 +74,22 @@ export default {
     reset () {
       this.$refs.form.reset()
     },
-    initLessonContents (id) {
-      LessonService.getCardsByIdAndUserId(id, this.$store.getters['auth/getUserId'])
-        .then((r) => {
-          console.log(r.data)
-          this.title = r.data.title
-          this.description = r.data.description
-          this.items = _.map(r.data.contents, (v) => {
-            v.jp = v.jp_text
-            v.en = v.en_text
-            return v
-          })
-        })
-        .catch(error => {
-          const notification = {
-            type: 'error',
-            message: 'There was a problem get cards:' + error.message
-          }
-          this.$store.dispatch('notification/add', notification, { root: true})
-        })  
+    async initLessonContents (id) {
+      let r = await LessonService.getCardsByIdAndUserId(id, this.$store.getters['auth/getUserId'])
+      this.title = r.data.title
+      this.description = r.data.description
+      this.items = _.map(r.data.contents, (v) => {
+        v.jp = v.jp_text
+        v.en = v.en_text
+        return v
+      })
+        // .catch(error => {
+        //   const notification = {
+        //     type: 'error',
+        //     message: 'There was a problem get cards:' + error.message
+        //   }
+        //   this.$store.dispatch('notification/add', notification, { root: true})
+        // })  
     }
   }
 }
