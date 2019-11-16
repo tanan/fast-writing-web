@@ -3,7 +3,7 @@
     <v-row align="center" justify="center">
       <v-col class="d-flex" cols="12" sm="6">
         <v-form class="lesson-form" ref="form" lazy-validation>
-          <h2>Lesson作成</h2>
+          <Lessontips></Lessontips>
           <v-text-field v-model="title" label="Title" required></v-text-field>
           <v-text-field v-model="description" label="Description" required></v-text-field>
           <v-btn color="info" @click="create">Add Lesson</v-btn>
@@ -15,7 +15,11 @@
 
 <script>
 import LessonService from '@/services/LessonService.js';
+import Lessontips from '@/components/lesson/Tooltips.vue';
 export default {
+  components: {
+    Lessontips
+  },
   data: () => ({
     title: '',
     description: ''
