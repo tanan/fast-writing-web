@@ -4,16 +4,17 @@
       <v-row align="start" justify="center">
         <v-col cols="12" sm="6" md="6">
           <h2>瞬間英作文</h2>
-          <p class="sentence">表示される日本語を英語で表現してみよう</p>
+          <p class="sentence">表示される日本語を英語で表現してみましょう。{{ waitSec }}秒後に英語の表現が表示されます。</p>
           <v-select
             class="d-inline-flex pa-2"
-            v-model="selectedSec"
+            v-model="waitSec"
             :items="sec"
             label="秒数"
             type="Number"
           ></v-select>
+          <v-btn color="success" class="retry-button" @click="reset">再トライ</v-btn>
           <v-card>
-            <v-subheader><span class="lesson-title">Lesson {{ lessonId }}</span> {{ title }}</v-subheader>
+            <v-subheader><span class="lesson-title">Lesson:</span>{{ title }}</v-subheader>
             <v-list two-line>
               <template v-for="(item, index) in items">
                 <div :key="index" v-if="item.jpShow">
@@ -43,8 +44,7 @@ export default {
       lessonId: !isNaN(this.$route.params.id) ? parseInt(this.$route.params.id, 10) : 1,
       title: '',
       count: 0,
-      waitSec: !isNaN(this.$route.query.ns) ? parseInt(this.$route.query.ns, 10) : 5000,
-      selectedSec: 5,
+      waitSec: !isNaN(this.$route.query.ns) ? parseInt(this.$route.query.ns, 10) : 5,
       sec: [1, 3, 5, 7, 9],
       items: []
     }
@@ -53,7 +53,7 @@ export default {
     this.init(this.lessonId)
   },
   mounted () {
-    this.pollData(this.waitSec)
+    this.pollData(this.waitSec*1000)
   },
   methods: {
     test() {
@@ -65,7 +65,7 @@ export default {
     init(lessonId) {
       this.count = 0
       this.items = []
-      this.pollData(this.waitSec)
+      this.pollData(this.waitSec*1000)
       this.initLessonContents(lessonId)
     },
     initLessonContents (id) {
@@ -115,13 +115,13 @@ export default {
     complete: function (v) {
       clearInterval(v)
     },
+    reset: function () {
+      this.init(this.lessonId)
+    }
   },
   watch: {
-    selectedSec: function (v) {
+    waitSec: function (v) {
       this.pollData(v*1000)
-    },
-    lessonId: function (v) {
-      this.$router.push('/lesson/' + v)
     }
   },
   beforeRouteUpdate (to, from, next) {
@@ -141,5 +141,8 @@ h2 {
 }
 p {
   font-size: 14px;
+}
+.retry-button {
+  margin-left: 30px;
 }
 </style>

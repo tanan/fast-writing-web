@@ -2,6 +2,9 @@
   <div>
     <v-container>
       <v-row class="grey lighten-5">
+        <v-col>
+          <LessonIntro></LessonIntro>
+        </v-col>
         <v-col lg=3 md=12 sm=12 xs=12 v-for="card in cards" :key="`${card.type}-${card.id}`">
           <LessonCard :card="card"></LessonCard>
         </v-col>
@@ -12,11 +15,13 @@
 
 <script>
 import LessonCard from '@/components/lesson/Card.vue';
+import LessonIntro from '@/components/lesson/LessonIntro.vue';
 import LessonService from '@/services/LessonService.js';
 import _ from 'lodash';
 export default {
   components: {
-    LessonCard
+    LessonCard,
+    LessonIntro
   },
   data: () => ({
     cards: [],
