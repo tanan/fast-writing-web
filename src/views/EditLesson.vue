@@ -59,10 +59,8 @@ export default {
   },
   watch: {
     shouldReflesh(v) {
-      console.log("hogehoge")
       if (v) {
         this.initLessonContents(this.lessonId)
-        console.log("hogehoge2")
         this.$store.dispatch('card/finishEditContent')
       }
     }
